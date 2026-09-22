@@ -1,129 +1,139 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Class JEE - Courses</title>
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#f5f7fb;color:#172033}
-header{background:#172b4d;color:white;text-align:center;padding:25px 15px}
-header h1{font-size:32px}
-header p{margin-top:8px;font-size:18px}
-.container{max-width:1000px;margin:auto;padding:25px 15px}
-h2{margin-bottom:20px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-.card{background:white;padding:25px;border-radius:16px;text-align:center;box-shadow:0 4px 15px #0001}
-.card h3{font-size:24px;margin:10px 0}
-.card p{color:#666;margin-bottom:18px}
-button{background:#1769e0;color:white;border:0;padding:12px 22px;border-radius:10px;font-size:16px;cursor:pointer}
-button:hover{background:#0d55bd}
-select{width:100%;padding:14px;margin:10px 0;border:1px solid #ccc;border-radius:10px;font-size:16px}
-.section{background:white;padding:20px;border-radius:16px;margin-top:20px}
-.lesson{padding:15px;border-bottom:1px solid #eee}
-.lesson:last-child{border-bottom:0}
-.hidden{display:none}
-.back{background:#555;margin-bottom:15px}
-footer{background:#172033;color:white;text-align:center;padding:25px;margin-top:30px}
-</style>
-</head>
+selectedClass=name;
 
-<body>
+document.getElementById("home").classList.add("hidden");
 
-<header>
-<h1>🎓 Class JEE</h1>
-<p>Learn • Practice • Succeed</p>
-</header>
+document.getElementById("course").classList.remove("hidden");
 
-<div class="container">
+document.getElementById("courseTitle").innerText=
+"📚 Class "+name;
 
-<div id="home">
-<h2>📚 Class 1–12 Courses</h2>
+window.scrollTo(0,0);
 
-<div class="grid">
+}
 
-<div class="card">
-<div style="font-size:45px">🏫</div>
-<h3>Class 1–5</h3>
-<p>Basic learning, Notes और Questions</p>
-<button onclick="openClass('1-5')">Open Course</button>
-</div>
+function goHome(){
 
-<div class="card">
-<div style="font-size:45px">📖</div>
-<h3>Class 6–8</h3>
-<p>School subjects और Practice</p>
-<button onclick="openClass('6-8')">Open Course</button>
-</div>
+document.getElementById("course").classList.add("hidden");
 
-<div class="card">
-<div style="font-size:45px">🎯</div>
-<h3>Class 9–10</h3>
-<p>Board preparation और Tests</p>
-<button onclick="openClass('9-10')">Open Course</button>
-</div>
+document.getElementById("home").classList.remove("hidden");
 
-<div class="card">
-<div style="font-size:45px">🚀</div>
-<h3>Class 11–12</h3>
-<p>Physics, Chemistry और Mathematics</p>
-<button onclick="openClass('11-12')">Open Course</button>
-</div>
+}
 
-</div>
-</div>
+function showChapters(){
 
-<div id="course" class="hidden">
+let subject=document.getElementById("subject").value;
 
-<button class="back" onclick="goHome()">← Back</button>
+let box=document.getElementById("chapters");
 
-<h2 id="courseTitle">Course</h2>
+let list=document.getElementById("chapterList");
 
-<div class="section">
-<h3>📚 Subject चुनें</h3>
+list.innerHTML="";
 
-<select id="subject" onchange="showLessons()">
-<option value="">-- Subject चुनें --</option>
-<option>📐 Mathematics</option>
-<option>🔬 Science</option>
-<option>📖 English</option>
-<option>🌐 Hindi</option>
-</select>
-</div>
+if(subject==="math"){
 
-<div id="lessons" class="section hidden">
-<h3>📘 Learning Material</h3>
+box.classList.remove("hidden");
 
-<div class="lesson">
-<b>📚 Notes</b>
-<p>Chapter के notes यहाँ मिलेंगे।</p>
-<button onclick="alert('Notes जल्द उपलब्ध होंगे।')">Open Notes</button>
-</div>
+let chapters=[
+"Chapter 1 — Numbers",
+"Chapter 2 — Addition",
+"Chapter 3 — Subtraction",
+"Chapter 4 — Multiplication",
+"Chapter 5 — Division",
+"Chapter 6 — Fractions",
+"Chapter 7 — Decimals",
+"Chapter 8 — Geometry",
+"Chapter 9 — Measurement",
+"Chapter 10 — Data Handling"
+];
 
-<div class="lesson">
-<b>🎥 Video Classes</b>
-<p>Video lessons यहाँ मिलेंगे।</p>
-<button onclick="alert('Videos जल्द उपलब्ध होंगे।')">Watch Video</button>
-</div>
+chapters.forEach(function(chapter,index){
 
-<div class="lesson">
-<b>❓ Questions</b>
-<p>Practice questions हल करें।</p>
-<button onclick="alert('Questions जल्द उपलब्ध होंगे।')">Practice</button>
-</div>
+list.innerHTML += `
+<div class="chapter">
+<h3>📘 ${chapter}</h3>
 
-<div class="lesson">
-<b>📝 Test</b>
-<p>अपनी तैयारी का test दें।</p>
-<button onclick="alert('Test जल्द उपलब्ध होगा।')">Start Test</button>
-</div>
+<p>
+Notes, Questions और Test
+</p>
+
+<br>
+
+<button onclick="openNotes(${index+1})">
+📚 Notes
+</button>
+
+<button onclick="openQuestions(${index+1})">
+❓ Questions
+</button>
+
+<button onclick="openTest(${index+1})">
+📝 Test
+</button>
 
 </div>
-</div>
+`;
 
-</div>
+});
 
+}
+
+else if(subject){
+
+box.classList.remove("hidden");
+
+list.innerHTML=`
+<div class="chapter">
+<h3>📚 ${document.getElementById("subject").options[
+document.getElementById("subject").selectedIndex
+].text}</h3>
+
+<p>इस subject के chapters जल्द जोड़े जाएंगे।</p>
+</div>
+`;
+
+}
+
+else{
+
+box.classList.add("hidden");
+
+}
+
+}
+
+
+function openNotes(chapter){
+
+alert(
+"📚 Chapter "+chapter+
+" के Notes जल्द उपलब्ध होंगे।"
+);
+
+}
+
+function openQuestions(chapter){
+
+alert(
+"❓ Chapter "+chapter+
+" के Questions जल्द उपलब्ध होंगे।"
+);
+
+}
+
+function openTest(chapter){
+
+alert(
+"📝 Chapter "+chapter+
+" का Test जल्द उपलब्ध होगा।"
+);
+
+}
+
+</script>
+
+</body>
+</html>
 <footer>
 © 2026 Class JEE<br>
 Education • Technology • Future
@@ -152,7 +162,4 @@ lessons.classList.remove("hidden");
 lessons.classList.add("hidden");
 }
 }
-</script>
-
-</body>
-</html>
+</scr
