@@ -1,229 +1,158 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Class JEE - Education Platform</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class JEE - Courses</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      background: #f5f7fb;
-      color: #172033;
-    }
-
-    header {
-      background: #172b4d;
-      color: white;
-      padding: 18px;
-      text-align: center;
-    }
-
-    header h1 {
-      font-size: 30px;
-    }
-
-    header p {
-      margin-top: 6px;
-    }
-
-    .hero {
-      padding: 30px 18px;
-      text-align: center;
-      background: white;
-    }
-
-    .hero h2 {
-      font-size: 27px;
-      margin-bottom: 10px;
-    }
-
-    .hero p {
-      color: #555;
-      margin-bottom: 20px;
-    }
-
-    .search {
-      width: 90%;
-      max-width: 500px;
-      padding: 14px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 16px;
-    }
-
-    .container {
-      padding: 25px 15px;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .container h2 {
-      margin-bottom: 18px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-      text-align: center;
-    }
-
-    .card .icon {
-      font-size: 42px;
-      margin-bottom: 12px;
-    }
-
-    .card h3 {
-      margin-bottom: 8px;
-    }
-
-    .card p {
-      color: #666;
-      margin-bottom: 18px;
-    }
-
-    button {
-      border: none;
-      padding: 11px 20px;
-      border-radius: 8px;
-      background: #1769e0;
-      color: white;
-      font-size: 15px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #0d52b5;
-    }
-
-    .ai {
-      margin-top: 30px;
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
-
-    .ai h2 {
-      margin-bottom: 10px;
-    }
-
-    .ai p {
-      color: #666;
-      margin-bottom: 18px;
-    }
-
-    footer {
-      margin-top: 30px;
-      background: #172b4d;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
-  </style>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f5f7fb;color:#172033}
+header{background:#172b4d;color:white;text-align:center;padding:25px 15px}
+header h1{font-size:32px}
+header p{margin-top:8px;font-size:18px}
+.container{max-width:1000px;margin:auto;padding:25px 15px}
+h2{margin-bottom:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{background:white;padding:25px;border-radius:16px;text-align:center;box-shadow:0 4px 15px #0001}
+.card h3{font-size:24px;margin:10px 0}
+.card p{color:#666;margin-bottom:18px}
+button{background:#1769e0;color:white;border:0;padding:12px 22px;border-radius:10px;font-size:16px;cursor:pointer}
+button:hover{background:#0d55bd}
+select{width:100%;padding:14px;margin:10px 0;border:1px solid #ccc;border-radius:10px;font-size:16px}
+.section{background:white;padding:20px;border-radius:16px;margin-top:20px}
+.lesson{padding:15px;border-bottom:1px solid #eee}
+.lesson:last-child{border-bottom:0}
+.hidden{display:none}
+.back{background:#555;margin-bottom:15px}
+footer{background:#172033;color:white;text-align:center;padding:25px;margin-top:30px}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <h1>🎓 Class JEE</h1>
-    <p>Learn • Practice • Succeed</p>
-  </header>
+<header>
+<h1>🎓 Class JEE</h1>
+<p>Learn • Practice • Succeed</p>
+</header>
 
-  <section class="hero">
-    <h2>आपकी पढ़ाई, एक ही जगह</h2>
-    <p>Class 1–12, JEE Main और JEE Advanced</p>
+<div class="container">
 
-    <input
-      class="search"
-      type="text"
-      placeholder="🔍 Subject, Chapter या Course खोजें..."
-    >
-  </section>
+<div id="home">
+<h2>📚 Class 1–12 Courses</h2>
 
-  <main class="container">
+<div class="grid">
 
-    <h2>📚 Courses</h2>
+<div class="card">
+<div style="font-size:45px">🏫</div>
+<h3>Class 1–5</h3>
+<p>Basic learning, Notes और Questions</p>
+<button onclick="openClass('1-5')">Open Course</button>
+</div>
 
-    <div class="cards">
+<div class="card">
+<div style="font-size:45px">📖</div>
+<h3>Class 6–8</h3>
+<p>School subjects और Practice</p>
+<button onclick="openClass('6-8')">Open Course</button>
+</div>
 
-      <div class="card">
-        <div class="icon">🏫</div>
-        <h3>Class 1–12</h3>
-        <p>Notes, Videos, Questions और Tests</p>
-        <button onclick="openCourse('Class 1–12')">
-          View Course
-        </button>
-      </div>
+<div class="card">
+<div style="font-size:45px">🎯</div>
+<h3>Class 9–10</h3>
+<p>Board preparation और Tests</p>
+<button onclick="openClass('9-10')">Open Course</button>
+</div>
 
-      <div class="card">
-        <div class="icon">🚀</div>
-        <h3>JEE Main</h3>
-        <p>Physics, Chemistry और Mathematics</p>
-        <button onclick="openCourse('JEE Main')">
-          View Course
-        </button>
-      </div>
+<div class="card">
+<div style="font-size:45px">🚀</div>
+<h3>Class 11–12</h3>
+<p>Physics, Chemistry और Mathematics</p>
+<button onclick="openClass('11-12')">Open Course</button>
+</div>
 
-      <div class="card">
-        <div class="icon">🏆</div>
-        <h3>JEE Advanced</h3>
-        <p>Advanced Questions, PYQ और Mock Tests</p>
-        <button onclick="openCourse('JEE Advanced')">
-          View Course
-        </button>
-      </div>
+</div>
+</div>
 
-    </div>
+<div id="course" class="hidden">
 
-    <div class="ai">
-      <h2>🤖 AI Doubt Solver</h2>
-      <p>Question की Photo या Voice से अपना Doubt पूछें</p>
+<button class="back" onclick="goHome()">← Back</button>
 
-      <button onclick="photoDoubt()">
-        📷 Photo Doubt
-      </button>
+<h2 id="courseTitle">Course</h2>
 
-      <button onclick="voiceDoubt()">
-        🎤 Voice Doubt
-      </button>
-    </div>
+<div class="section">
+<h3>📚 Subject चुनें</h3>
 
-  </main>
+<select id="subject" onchange="showLessons()">
+<option value="">-- Subject चुनें --</option>
+<option>📐 Mathematics</option>
+<option>🔬 Science</option>
+<option>📖 English</option>
+<option>🌐 Hindi</option>
+</select>
+</div>
 
-  <footer>
-    <p>© 2026 Class JEE</p>
-    <p>Education • Technology • Future</p>
-  </footer>
+<div id="lessons" class="section hidden">
+<h3>📘 Learning Material</h3>
 
-  <script>
-    function openCourse(course) {
-      alert(course + " course जल्द उपलब्ध होगा।");
-    }
+<div class="lesson">
+<b>📚 Notes</b>
+<p>Chapter के notes यहाँ मिलेंगे।</p>
+<button onclick="alert('Notes जल्द उपलब्ध होंगे।')">Open Notes</button>
+</div>
 
-    function photoDoubt() {
-      alert("Photo Doubt feature अगले चरण में जोड़ा जाएगा।");
-    }
+<div class="lesson">
+<b>🎥 Video Classes</b>
+<p>Video lessons यहाँ मिलेंगे।</p>
+<button onclick="alert('Videos जल्द उपलब्ध होंगे।')">Watch Video</button>
+</div>
 
-    function voiceDoubt() {
-      alert("Voice Doubt feature अगले चरण में जोड़ा जाएगा।");
-    }
-  </script>
+<div class="lesson">
+<b>❓ Questions</b>
+<p>Practice questions हल करें।</p>
+<button onclick="alert('Questions जल्द उपलब्ध होंगे।')">Practice</button>
+</div>
+
+<div class="lesson">
+<b>📝 Test</b>
+<p>अपनी तैयारी का test दें।</p>
+<button onclick="alert('Test जल्द उपलब्ध होगा।')">Start Test</button>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<footer>
+© 2026 Class JEE<br>
+Education • Technology • Future
+</footer>
+
+<script>
+function openClass(name){
+document.getElementById("home").classList.add("hidden");
+document.getElementById("course").classList.remove("hidden");
+document.getElementById("courseTitle").innerText="📚 Class "+name;
+window.scrollTo(0,0);
+}
+
+function goHome(){
+document.getElementById("course").classList.add("hidden");
+document.getElementById("home").classList.remove("hidden");
+}
+
+function showLessons(){
+let subject=document.getElementById("subject").value;
+let lessons=document.getElementById("lessons");
+
+if(subject){
+lessons.classList.remove("hidden");
+}else{
+lessons.classList.add("hidden");
+}
+}
+</script>
 
 </body>
 </html>
