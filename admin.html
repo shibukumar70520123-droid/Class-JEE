@@ -3,116 +3,177 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Class JEE - Admin Login</title>
+<title>Class JEE - Admin Panel</title>
 
 <style>
+*{box-sizing:border-box}
+
 body{
     margin:0;
     font-family:Arial,sans-serif;
-    background:#f2f5f9;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
+    background:#f4f6f9;
 }
 
-.login-box{
-    width:90%;
-    max-width:380px;
+header{
+    background:#1769e0;
+    color:white;
+    padding:18px;
+}
+
+header h1{
+    margin:0;
+}
+
+.container{
+    padding:20px;
+    max-width:1100px;
+    margin:auto;
+}
+
+.welcome{
     background:white;
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0 5px 25px rgba(0,0,0,.15);
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:20px;
+    box-shadow:0 2px 10px #ddd;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:15px;
+}
+
+.card{
+    background:white;
+    padding:22px;
+    border-radius:12px;
+    box-shadow:0 2px 10px #ddd;
+    cursor:pointer;
     text-align:center;
 }
 
-.logo{
-    font-size:50px;
+.card:hover{
+    transform:translateY(-2px);
 }
 
-h1{
-    margin:10px 0;
+.icon{
+    font-size:35px;
 }
 
-p{
+.card h3{
+    margin:10px 0 5px;
+}
+
+.card p{
     color:#666;
-}
-
-input{
-    width:100%;
-    padding:13px;
-    margin:8px 0;
-    box-sizing:border-box;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:16px;
+    font-size:14px;
 }
 
 button{
-    width:100%;
-    padding:13px;
-    margin-top:12px;
     border:0;
-    border-radius:8px;
+    padding:10px 18px;
+    border-radius:7px;
     background:#1769e0;
     color:white;
-    font-size:17px;
     cursor:pointer;
 }
 
-button:hover{
-    background:#0d55bd;
-}
-
-.note{
-    margin-top:20px;
-    font-size:13px;
-    color:#888;
+.logout{
+    float:right;
+    background:#d93025;
 }
 </style>
 </head>
 
 <body>
 
-<div class="login-box">
+<header>
+    <button class="logout" onclick="logout()">Logout</button>
+    <h1>🎓 Class JEE Admin Panel</h1>
+</header>
 
-    <div class="logo">🎓</div>
+<div class="container">
 
-    <h1>Class JEE</h1>
+<div class="welcome">
+    <h2>Welcome Admin 👋</h2>
+    <p>यहाँ से आपकी पूरी Class JEE website manage होगी।</p>
+</div>
 
-    <h2>Admin Panel</h2>
+<div class="grid">
 
-    <p>Admin Login</p>
+<div class="card" onclick="openSection('Courses')">
+    <div class="icon">📚</div>
+    <h3>Courses</h3>
+    <p>Class 9, 10, 11, 12</p>
+</div>
 
-    <input type="email" id="email"
-           placeholder="Admin ID">
+<div class="card" onclick="openSection('Subjects & Chapters')">
+    <div class="icon">📖</div>
+    <h3>Subjects & Chapters</h3>
+    <p>Subject और Chapter manage करें</p>
+</div>
 
-    <input type="password" id="password"
-           placeholder="Password">
+<div class="card" onclick="openSection('Videos')">
+    <div class="icon">🎥</div>
+    <h3>Videos</h3>
+    <p>Video classes जोड़ें</p>
+</div>
 
-    <button onclick="login()">Login</button>
+<div class="card" onclick="openSection('Notes')">
+    <div class="icon">📄</div>
+    <h3>Notes / PDF</h3>
+    <p>Study material manage करें</p>
+</div>
 
-    <div class="note">
-        केवल Admin के लिए
-    </div>
+<div class="card" onclick="openSection('Questions')">
+    <div class="icon">❓</div>
+    <h3>Questions</h3>
+    <p>Questions जोड़ें</p>
+</div>
+
+<div class="card" onclick="openSection('Tests')">
+    <div class="icon">📝</div>
+    <h3>Tests</h3>
+    <p>Online tests बनाएं</p>
+</div>
+
+<div class="card" onclick="openSection('Users')">
+    <div class="icon">👥</div>
+    <h3>Users</h3>
+    <p>Students manage करें</p>
+</div>
+
+<div class="card" onclick="openSection('Payments')">
+    <div class="icon">💰</div>
+    <h3>Payments</h3>
+    <p>Payment records</p>
+</div>
+
+<div class="card" onclick="openSection('App Settings')">
+    <div class="icon">⚙️</div>
+    <h3>App Settings</h3>
+    <p>Name, Logo, Icon, Tagline</p>
+</div>
+
+<div class="card" onclick="openSection('Announcements')">
+    <div class="icon">📢</div>
+    <h3>Announcements</h3>
+    <p>Notice और updates</p>
+</div>
+
+</div>
 
 </div>
 
 <script>
 
-function login(){
+function openSection(name){
+    alert(name + " section अगली step में बनाया जाएगा।");
+}
 
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-
-    if(email === "" || password === ""){
-        alert("Admin ID और Password डालें");
-        return;
-    }
-
-    alert("Login system अगली step में secure किया जाएगा।");
-
+function logout(){
+    alert("Logout system अगली step में secure किया जाएगा।");
 }
 
 </script>
