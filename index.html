@@ -3,97 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Class JEE - Education Platform</title>
-
+<title>Class JEE</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family:Arial,sans-serif;
-  background:#f5f7fb;
-  color:#172033;
-}
-header{
-  background:#172b4d;
-  color:white;
-  text-align:center;
-  padding:25px 15px;
-}
-header h1{font-size:32px}
-header p{margin-top:8px;font-size:18px}
-
-.container{
-  max-width:1000px;
-  margin:auto;
-  padding:25px 15px;
-}
-
-h2{margin-bottom:20px}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;
-}
-
-.card{
-  background:white;
-  padding:25px;
-  border-radius:16px;
-  text-align:center;
-  box-shadow:0 4px 15px #0001;
-}
-
-.card h3{
-  font-size:24px;
-  margin:10px 0;
-}
-
-.card p{
-  color:#666;
-  margin-bottom:18px;
-}
-
-button{
-  background:#1769e0;
-  color:white;
-  border:0;
-  padding:12px 22px;
-  border-radius:10px;
-  font-size:16px;
-}
-
-.section{
-  background:white;
-  padding:20px;
-  border-radius:16px;
-  margin-top:20px;
-}
-
-.chapter{
-  padding:18px;
-  margin:12px 0;
-  background:#f5f7fb;
-  border-radius:12px;
-}
-
-.chapter h3{
-  margin-bottom:10px;
-}
-
-.hidden{display:none}
-
-.back{
-  background:#555;
-  margin-bottom:15px;
-}
-
-footer{
-  background:#172033;
-  color:white;
-  text-align:center;
-  padding:25px;
-  margin-top:30px;
-}
+body{margin:0;font-family:Arial;background:#f5f7fb;color:#172033}
+header{background:#172b4d;color:white;text-align:center;padding:30px}
+h1{font-size:35px}
+.container{padding:25px;max-width:900px;margin:auto}
+.card{background:white;padding:25px;margin:15px 0;border-radius:15px;text-align:center;box-shadow:0 3px 12px #ddd}
+button{background:#1769e0;color:white;border:0;padding:14px 25px;border-radius:10px;font-size:17px}
 </style>
 </head>
 
@@ -106,229 +23,41 @@ footer{
 
 <div class="container">
 
-<!-- HOME -->
-<div id="home">
-
 <h2>📚 Class 1–12 Courses</h2>
 
-<div class="grid">
-
 <div class="card">
-<div style="font-size:45px">🏫</div>
-<h3>Class 1–5</h3>
-<p>Basic Learning और Questions</p>
-<button onclick="openClass('1–5')">Open Course</button>
+<h2>🏫 Class 1–5</h2>
+<p>Basic Learning, Notes और Questions</p>
+<button onclick="alert('Class 1–5 Course जल्द उपलब्ध होगा')">
+Open Course
+</button>
 </div>
 
 <div class="card">
-<div style="font-size:45px">📖</div>
-<h3>Class 6–8</h3>
+<h2>📖 Class 6–8</h2>
 <p>School Subjects और Practice</p>
-<button onclick="openClass('6–8')">Open Course</button>
+<button onclick="alert('Class 6–8 Course जल्द उपलब्ध होगा')">
+Open Course
+</button>
 </div>
 
 <div class="card">
-<div style="font-size:45px">🎯</div>
-<h3>Class 9–10</h3>
+<h2>🎯 Class 9–10</h2>
 <p>Board Preparation और Tests</p>
-<button onclick="openClass('9–10')">Open Course</button>
+<button onclick="alert('Class 9–10 Course जल्द उपलब्ध होगा')">
+Open Course
+</button>
 </div>
 
 <div class="card">
-<div style="font-size:45px">🚀</div>
-<h3>Class 11–12</h3>
+<h2>🚀 Class 11–12</h2>
 <p>Physics, Chemistry और Mathematics</p>
-<button onclick="openClass('11–12')">Open Course</button>
-</div>
-
-</div>
-</div>
-
-
-<!-- COURSE -->
-<div id="course" class="hidden">
-
-<button class="back" onclick="goHome()">← Back</button>
-
-<h2 id="courseTitle"></h2>
-
-<div class="section">
-
-<h3>📚 Subject चुनें</h3>
-
-<select id="subject"
-style="width:100%;padding:14px;margin-top:12px;border-radius:10px;font-size:16px"
-onchange="showChapters()">
-
-<option value="">-- Subject चुनें --</option>
-<option value="math">📐 Mathematics</option>
-<option value="science">🔬 Science</option>
-<option value="english">📖 English</option>
-<option value="hindi">🌐 Hindi</option>
-
-</select>
-
-</div>
-
-
-<!-- CHAPTERS -->
-<div id="chapters" class="section hidden">
-
-<h2>📘 Chapters</h2>
-
-<div id="chapterList"></div>
-
-</div>
-
-</div>
-
-</div>
-
-
-<footer>
-© 2026 Class JEE<br>
-Education • Technology • Future
-</footer>
-
-
-<script>
-
-let selectedClass="";
-
-function openClass(name){
-
-selectedClass=name;
-
-document.getElementById("home").classList.add("hidden");
-
-document.getElementById("course").classList.remove("hidden");
-
-document.getElementById("courseTitle").innerText=
-"📚 Class "+name;
-
-window.scrollTo(0,0);
-
-}
-
-function goHome(){
-
-document.getElementById("course").classList.add("hidden");
-
-document.getElementById("home").classList.remove("hidden");
-
-}
-
-function showChapters(){
-
-let subject=document.getElementById("subject").value;
-
-let box=document.getElementById("chapters");
-
-let list=document.getElementById("chapterList");
-
-list.innerHTML="";
-
-if(subject==="math"){
-
-box.classList.remove("hidden");
-
-let chapters=[
-"Chapter 1 — Numbers",
-"Chapter 2 — Addition",
-"Chapter 3 — Subtraction",
-"Chapter 4 — Multiplication",
-"Chapter 5 — Division",
-"Chapter 6 — Fractions",
-"Chapter 7 — Decimals",
-"Chapter 8 — Geometry",
-"Chapter 9 — Measurement",
-"Chapter 10 — Data Handling"
-];
-
-chapters.forEach(function(chapter,index){
-
-list.innerHTML += `
-<div class="chapter">
-<h3>📘 ${chapter}</h3>
-
-<p>
-Notes, Questions और Test
-</p>
-
-<br>
-
-<button onclick="openNotes(${index+1})">
-📚 Notes
+<button onclick="alert('Class 11–12 Course जल्द उपलब्ध होगा')">
+Open Course
 </button>
-
-<button onclick="openQuestions(${index+1})">
-❓ Questions
-</button>
-
-<button onclick="openTest(${index+1})">
-📝 Test
-</button>
+</div>
 
 </div>
-`;
-
-});
-
-}
-
-else if(subject){
-
-box.classList.remove("hidden");
-
-list.innerHTML=`
-<div class="chapter">
-<h3>📚 ${document.getElementById("subject").options[
-document.getElementById("subject").selectedIndex
-].text}</h3>
-
-<p>इस subject के chapters जल्द जोड़े जाएंगे।</p>
-</div>
-`;
-
-}
-
-else{
-
-box.classList.add("hidden");
-
-}
-
-}
-
-
-function openNotes(chapter){
-
-alert(
-"📚 Chapter "+chapter+
-" के Notes जल्द उपलब्ध होंगे।"
-);
-
-}
-
-function openQuestions(chapter){
-
-alert(
-"❓ Chapter "+chapter+
-" के Questions जल्द उपलब्ध होंगे।"
-);
-
-}
-
-function openTest(chapter){
-
-alert(
-"📝 Chapter "+chapter+
-" का Test जल्द उपलब्ध होगा।"
-);
-
-}
-
-</script>
 
 </body>
 </html>
