@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Class JEE - Admin Login</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f2f5f9;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.login-box{
+    width:90%;
+    max-width:380px;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 25px rgba(0,0,0,.15);
+    text-align:center;
+}
+
+.logo{
+    font-size:50px;
+}
+
+h1{
+    margin:10px 0;
+}
+
+p{
+    color:#666;
+}
+
+input{
+    width:100%;
+    padding:13px;
+    margin:8px 0;
+    box-sizing:border-box;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    padding:13px;
+    margin-top:12px;
+    border:0;
+    border-radius:8px;
+    background:#1769e0;
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0d55bd;
+}
+
+.note{
+    margin-top:20px;
+    font-size:13px;
+    color:#888;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <div class="logo">🎓</div>
+
+    <h1>Class JEE</h1>
+
+    <h2>Admin Panel</h2>
+
+    <p>Admin Login</p>
+
+    <input type="email" id="email"
+           placeholder="Admin ID">
+
+    <input type="password" id="password"
+           placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <div class="note">
+        केवल Admin के लिए
+    </div>
+
+</div>
+
+<script>
+
+function login(){
+
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    if(email === "" || password === ""){
+        alert("Admin ID और Password डालें");
+        return;
+    }
+
+    alert("Login system अगली step में secure किया जाएगा।");
+
+}
+
+</script>
+
+</body>
+</html>
