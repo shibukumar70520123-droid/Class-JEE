@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Class JEE - Courses</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f6f9;
+}
+
+header{
+    background:#1769e0;
+    color:white;
+    padding:18px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+}
+
+.course{
+    background:white;
+    padding:18px;
+    margin-bottom:15px;
+    border-radius:12px;
+    box-shadow:0 2px 10px #ddd;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    margin:7px 0 12px;
+    border:1px solid #ccc;
+    border-radius:7px;
+    box-sizing:border-box;
+    font-size:16px;
+}
+
+button{
+    border:0;
+    padding:11px 18px;
+    border-radius:7px;
+    background:#1769e0;
+    color:white;
+    margin:5px;
+    cursor:pointer;
+}
+
+.delete{
+    background:#d93025;
+}
+
+.save{
+    background:#188038;
+}
+
+h2{
+    margin-top:0;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎓 Class JEE - Courses</h1>
+</header>
+
+<div class="container">
+
+<h2>📚 Course Management</h2>
+
+<div id="courses"></div>
+
+</div>
+
+<script>
+
+let courses = [
+
+{
+    id:9,
+    name:"Class 9",
+    price:0,
+    type:"Free"
+},
+
+{
+    id:10,
+    name:"Class 10",
+    price:0,
+    type:"Free"
+},
+
+{
+    id:11,
+    name:"Class 11",
+    price:0,
+    type:"Free"
+},
+
+{
+    id:12,
+    name:"Class 12",
+    price:0,
+    type:"Free"
+}
+
+];
+
+function showCourses(){
+
+    let box = document.getElementById("courses");
+
+    box.innerHTML = "";
+
+    courses.forEach((course,index)=>{
+
+        box.innerHTML += `
+
+        <div class="course">
+
+        <h2>Class ${course.id}</h2>
+
+        <label>Course Name</label>
+
+        <input
+        id="name${index}"
+        value="${course.name}"
+        >
+
+        <label>Course Type</label>
+
+        <select id="type${index}">
+
+            <option value="Free"
+            ${course.type==="Free"?"selected":""}>
+            Free
+            </option>
+
+            <option value="Paid"
+            ${course.type==="Paid"?"selected":""}>
+            Paid
+            </option>
+
+        </select>
+
+        <label>Price (₹)</label>
+
+        <input
+        type="number"
+        id="price${index}"
+        value="${course.price}"
+        >
+
+        <br>
+
+        <button class="save"
+        onclick="saveCourse(${index})">
+        💾 Save
+        </button>
+
+        <button class="delete"
+        onclick="deleteCourse(${index})">
+        🗑️ Delete
+        </button>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+function saveCourse(index){
+
+    courses[index].name =
+    document.getElementById("name"+index).value;
+
+    courses[index].type =
+    document.getElementById("type"+index).value;
+
+    courses[index].price =
+    document.getElementById("price"+index).value;
+
+    alert("Course save हो गया ✅");
+
+}
+
+function deleteCourse(index){
+
+    if(confirm("क्या आप यह course delete करना चाहते हैं?")){
+
+        courses.splice(index,1);
+
+        showCourses();
+
+    }
+
+}
+
+showCourses();
+
+</script>
+
+</body>
+</html>
