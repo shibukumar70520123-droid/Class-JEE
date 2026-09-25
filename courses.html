@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Class JEE - Courses</title>
+<title>Class JEE - Course Manager</title>
 
 <style>
 body{
@@ -25,44 +24,98 @@ header{
     padding:20px;
 }
 
-.course{
+.panel,.course{
     background:white;
-    padding:18px;
-    margin-bottom:15px;
-    border-radius:12px;
-    box-shadow:0 2px 10px #ddd;
+    padding:20px;
+    margin-bottom:18px;
+    border-radius:14px;
+    box-shadow:0 3px 12px #ddd;
 }
 
-input,select{
+input,textarea,select{
     width:100%;
     padding:12px;
-    margin:7px 0 12px;
+    margin:7px 0 15px;
     border:1px solid #ccc;
-    border-radius:7px;
+    border-radius:8px;
     box-sizing:border-box;
     font-size:16px;
+}
+
+textarea{
+    min-height:100px;
 }
 
 button{
     border:0;
     padding:11px 18px;
-    border-radius:7px;
-    background:#1769e0;
+    border-radius:8px;
     color:white;
-    margin:5px;
     cursor:pointer;
+    margin:4px;
+    font-size:15px;
+}
+
+.add{
+    background:#188038;
+}
+
+.save{
+    background:#1769e0;
+}
+
+.edit{
+    background:#f29900;
 }
 
 .delete{
     background:#d93025;
 }
 
-.save{
-    background:#188038;
+.status{
+    background:#555;
 }
 
-h2{
+.course h2{
     margin-top:0;
+}
+
+.badge{
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:13px;
+    margin-bottom:10px;
+}
+
+.free{
+    background:#d9f7df;
+    color:#137333;
+}
+
+.paid{
+    background:#ffe8cc;
+    color:#b06000;
+}
+
+.active{
+    background:#d9f7df;
+    color:#137333;
+}
+
+.inactive{
+    background:#eee;
+    color:#666;
+}
+
+.hidden{
+    display:none;
+}
+
+hr{
+    border:0;
+    border-top:1px solid #ddd;
+    margin:20px 0;
 }
 </style>
 </head>
@@ -70,12 +123,57 @@ h2{
 <body>
 
 <header>
-    <h1>🎓 Class JEE - Courses</h1>
+    <h1>🎓 Class JEE - Course Manager</h1>
 </header>
 
 <div class="container">
 
-<h2>📚 Course Management</h2>
+<div class="panel">
+
+<h2>➕ Add New Course / Batch</h2>
+
+<label>Course / Batch Name</label>
+
+<input
+id="newName"
+placeholder="जैसे NEET 2027 / One Shot Physics">
+
+<label>Category</label>
+
+<input
+id="newCategory"
+placeholder="जैसे NEET, JEE, Board">
+
+<label>Description</label>
+
+<textarea
+id="newDescription"
+placeholder="इस course के बारे में जानकारी लिखें"></textarea>
+
+<label>Course Type</label>
+
+<select id="newType">
+
+<option value="Free">Free</option>
+<option value="Paid">Paid</option>
+
+</select>
+
+<label>Price (₹)</label>
+
+<input
+id="newPrice"
+type="number"
+value="0"
+placeholder="Course price">
+
+<button class="add" onclick="addCourse()">
+➕ Add Course
+</button>
+
+</div>
+
+<h2>📚 All Courses / Batches</h2>
 
 <div id="courses"></div>
 
@@ -86,124 +184,263 @@ h2{
 let courses = [
 
 {
-    id:9,
-    name:"Class 9",
-    price:0,
-    type:"Free"
+name:"Class 9 Complete Course",
+category:"Class 9",
+description:"Class 9 के विद्यार्थियों के लिए complete study material, videos, notes, questions और tests।",
+type:"Free",
+price:0,
+active:true
 },
 
 {
-    id:10,
-    name:"Class 10",
-    price:0,
-    type:"Free"
+name:"Class 10 Complete Course",
+category:"Class 10",
+description:"Class 10 Board Exam की तैयारी के लिए complete study material, videos, notes, questions और tests।",
+type:"Free",
+price:0,
+active:true
 },
 
 {
-    id:11,
-    name:"Class 11",
-    price:0,
-    type:"Free"
+name:"Class 11 Complete Course",
+category:"Class 11",
+description:"Class 11 के विद्यार्थियों के लिए subject-wise video classes, notes, questions और tests।",
+type:"Paid",
+price:999,
+active:true
 },
 
 {
-    id:12,
-    name:"Class 12",
-    price:0,
-    type:"Free"
+name:"Class 12 Complete Course",
+category:"Class 12",
+description:"Class 12 Board और Competitive Exam की तैयारी के लिए complete course।",
+type:"Paid",
+price:1499,
+active:true
+},
+
+{
+name:"JEE Main Complete Course",
+category:"JEE Main",
+description:"Physics, Chemistry और Mathematics की complete JEE Main preparation।",
+type:"Paid",
+price:1999,
+active:true
+},
+
+{
+name:"JEE Advanced Complete Course",
+category:"JEE Advanced",
+description:"JEE Advanced के लिए advanced level Physics, Chemistry और Mathematics preparation।",
+type:"Paid",
+price:2999,
+active:true
 }
 
 ];
 
 function showCourses(){
 
-    let box = document.getElementById("courses");
+let box=document.getElementById("courses");
 
-    box.innerHTML = "";
+box.innerHTML="";
 
-    courses.forEach((course,index)=>{
+if(courses.length===0){
 
-        box.innerHTML += `
+box.innerHTML=`
+<div class="panel">
+<h3>कोई Course नहीं है।</h3>
+<p>ऊपर से ➕ Add Course दबाकर नया course बनाएं।</p>
+</div>
+`;
 
-        <div class="course">
-
-        <h2>Class ${course.id}</h2>
-
-        <label>Course Name</label>
-
-        <input
-        id="name${index}"
-        value="${course.name}"
-        >
-
-        <label>Course Type</label>
-
-        <select id="type${index}">
-
-            <option value="Free"
-            ${course.type==="Free"?"selected":""}>
-            Free
-            </option>
-
-            <option value="Paid"
-            ${course.type==="Paid"?"selected":""}>
-            Paid
-            </option>
-
-        </select>
-
-        <label>Price (₹)</label>
-
-        <input
-        type="number"
-        id="price${index}"
-        value="${course.price}"
-        >
-
-        <br>
-
-        <button class="save"
-        onclick="saveCourse(${index})">
-        💾 Save
-        </button>
-
-        <button class="delete"
-        onclick="deleteCourse(${index})">
-        🗑️ Delete
-        </button>
-
-        </div>
-
-        `;
-
-    });
+return;
 
 }
 
-function saveCourse(index){
+courses.forEach((course,index)=>{
 
-    courses[index].name =
-    document.getElementById("name"+index).value;
+let typeClass =
+course.type==="Free" ? "free" : "paid";
 
-    courses[index].type =
-    document.getElementById("type"+index).value;
+let statusClass =
+course.active ? "active" : "inactive";
 
-    courses[index].price =
-    document.getElementById("price"+index).value;
+let statusText =
+course.active ? "🟢 Active" : "🔴 Inactive";
 
-    alert("Course save हो गया ✅");
+box.innerHTML += `
+
+<div class="course">
+
+<h2>📚 ${course.name}</h2>
+
+<span class="badge ${typeClass}">
+${course.type}
+</span>
+
+<span class="badge ${statusClass}">
+${statusText}
+</span>
+
+<p><b>Category:</b> ${course.category}</p>
+
+<p><b>Description:</b></p>
+
+<p>${course.description}</p>
+
+<p><b>Price:</b> ₹${course.price}</p>
+
+<hr>
+
+<button class="edit"
+onclick="editCourse(${index})">
+✏️ Edit
+</button>
+
+<button class="status"
+onclick="toggleStatus(${index})">
+${course.active ? "🔴 Hide" : "🟢 Activate"}
+</button>
+
+<button class="delete"
+onclick="deleteCourse(${index})">
+🗑️ Delete
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+function addCourse(){
+
+let name=document.getElementById("newName").value.trim();
+
+let category=document.getElementById("newCategory").value.trim();
+
+let description=document.getElementById("newDescription").value.trim();
+
+let type=document.getElementById("newType").value;
+
+let price=document.getElementById("newPrice").value;
+
+if(name===""){
+
+alert("Course / Batch Name लिखें");
+
+return;
+
+}
+
+if(category===""){
+
+alert("Category लिखें");
+
+return;
+
+}
+
+if(description===""){
+
+alert("Description लिखें");
+
+return;
+
+}
+
+courses.push({
+
+name:name,
+
+category:category,
+
+description:description,
+
+type:type,
+
+price:Number(price)||0,
+
+active:true
+
+});
+
+document.getElementById("newName").value="";
+
+document.getElementById("newCategory").value="";
+
+document.getElementById("newDescription").value="";
+
+document.getElementById("newPrice").value="0";
+
+showCourses();
+
+alert("नया Course/Batch बन गया ✅");
+
+}
+
+function editCourse(index){
+
+let course=courses[index];
+
+let name=prompt(
+"Course Name:",
+course.name
+);
+
+if(name===null) return;
+
+let description=prompt(
+"Course Description:",
+course.description
+);
+
+if(description===null) return;
+
+let price=prompt(
+"Course Price:",
+course.price
+);
+
+if(price===null) return;
+
+course.name=name;
+
+course.description=description;
+
+course.price=Number(price)||0;
+
+showCourses();
+
+alert("Course update हो गया ✅");
+
+}
+
+function toggleStatus(index){
+
+courses[index].active=
+!courses[index].active;
+
+showCourses();
 
 }
 
 function deleteCourse(index){
 
-    if(confirm("क्या आप यह course delete करना चाहते हैं?")){
+if(confirm(
+"क्या आप यह Course/Batch permanently delete करना चाहते हैं?"
+)){
 
-        courses.splice(index,1);
+courses.splice(index,1);
 
-        showCourses();
+showCourses();
 
-    }
+alert("Course delete हो गया ✅");
+
+}
 
 }
 
