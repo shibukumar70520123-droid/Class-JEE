@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Class JEE - Admin Panel</title>
 
 <style>
@@ -12,6 +13,7 @@ body{
     margin:0;
     font-family:Arial,sans-serif;
     background:#f4f6f9;
+    color:#222;
 }
 
 header{
@@ -22,6 +24,7 @@ header{
 
 header h1{
     margin:0;
+    font-size:22px;
 }
 
 .container{
@@ -83,6 +86,51 @@ button{
     float:right;
     background:#d93025;
 }
+
+.section{
+    display:none;
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    margin-top:20px;
+    box-shadow:0 2px 10px #ddd;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:11px;
+    margin:7px 0 12px;
+    border:1px solid #ccc;
+    border-radius:7px;
+    font-size:15px;
+}
+
+.course{
+    border:1px solid #ddd;
+    padding:15px;
+    border-radius:10px;
+    margin-top:12px;
+}
+
+.course button{
+    margin:5px 5px 0 0;
+}
+
+.back{
+    background:#555;
+    margin-bottom:15px;
+}
+
+.status{
+    padding:10px;
+    border-radius:7px;
+    margin:10px 0;
+    background:#eef4ff;
+}
+
+.hidden{
+    display:none;
+}
 </style>
 </head>
 
@@ -95,6 +143,8 @@ button{
 
 <div class="container">
 
+<div id="dashboard">
+
 <div class="welcome">
     <h2>Welcome Admin 👋</h2>
     <p>यहाँ से आपकी पूरी Class JEE website manage होगी।</p>
@@ -102,65 +152,114 @@ button{
 
 <div class="grid">
 
-<div class="card" onclick="openSection('Courses')">
+<div class="card" onclick="openCourses()">
     <div class="icon">📚</div>
     <h3>Courses</h3>
-    <p>Class 9, 10, 11, 12</p>
+    <p>Course और Batch manage करें</p>
 </div>
 
-<div class="card" onclick="openSection('Subjects & Chapters')">
+<div class="card" onclick="comingSoon('Subjects & Chapters')">
     <div class="icon">📖</div>
     <h3>Subjects & Chapters</h3>
     <p>Subject और Chapter manage करें</p>
 </div>
 
-<div class="card" onclick="openSection('Videos')">
+<div class="card" onclick="comingSoon('Videos')">
     <div class="icon">🎥</div>
     <h3>Videos</h3>
     <p>Video classes जोड़ें</p>
 </div>
 
-<div class="card" onclick="openSection('Notes')">
+<div class="card" onclick="comingSoon('Notes / PDF')">
     <div class="icon">📄</div>
     <h3>Notes / PDF</h3>
     <p>Study material manage करें</p>
 </div>
 
-<div class="card" onclick="openSection('Questions')">
+<div class="card" onclick="comingSoon('Questions')">
     <div class="icon">❓</div>
     <h3>Questions</h3>
     <p>Questions जोड़ें</p>
 </div>
 
-<div class="card" onclick="openSection('Tests')">
+<div class="card" onclick="comingSoon('Tests')">
     <div class="icon">📝</div>
     <h3>Tests</h3>
     <p>Online tests बनाएं</p>
 </div>
 
-<div class="card" onclick="openSection('Users')">
+<div class="card" onclick="comingSoon('Users')">
     <div class="icon">👥</div>
     <h3>Users</h3>
     <p>Students manage करें</p>
 </div>
 
-<div class="card" onclick="openSection('Payments')">
+<div class="card" onclick="comingSoon('Payments')">
     <div class="icon">💰</div>
     <h3>Payments</h3>
     <p>Payment records</p>
 </div>
 
-<div class="card" onclick="openSection('App Settings')">
+<div class="card" onclick="comingSoon('App Settings')">
     <div class="icon">⚙️</div>
     <h3>App Settings</h3>
     <p>Name, Logo, Icon, Tagline</p>
 </div>
 
-<div class="card" onclick="openSection('Announcements')">
+<div class="card" onclick="comingSoon('Announcements')">
     <div class="icon">📢</div>
     <h3>Announcements</h3>
     <p>Notice और updates</p>
 </div>
+
+</div>
+</div>
+
+<div id="coursesSection" class="section">
+
+<button class="back" onclick="goHome()">← Dashboard</button>
+
+<h2>📚 Course Manager</h2>
+
+<div class="status" id="status">
+Courses load हो रहे हैं...
+</div>
+
+<h3>➕ नया Course / Batch</h3>
+
+<label>Course Name</label>
+<input id="courseName" placeholder="जैसे Class 10 Complete Course">
+
+<label>Category</label>
+<select id="courseCategory">
+<option>Class 9</option>
+<option>Class 10</option>
+<option>Class 11</option>
+<option>Class 12</option>
+<option>JEE Main</option>
+<option>JEE Advanced</option>
+<option>Other</option>
+</select>
+
+<label>Description</label>
+<textarea id="courseDescription" placeholder="Course के बारे में लिखें"></textarea>
+
+<label>Free / Paid</label>
+<select id="courseType">
+<option value="Free">Free</option>
+<option value="Paid">Paid</option>
+</select>
+
+<label>Price</label>
+<input id="coursePrice" type="number" placeholder="Paid course की कीमत">
+
+<button onclick="addCourse()">💾 Course Save करें</button>
+
+<hr>
+
+<h3>📋 Existing Courses</h3>
+
+<div id="courseList"></div>
 
 </div>
 
@@ -168,12 +267,155 @@ button{
 
 <script>
 
-function openSection(name){
+const API_URL =
+"https://script.google.com/macros/s/AKfycbwmPNOJkyUYHZcb-YQSh1MTJHNKXHVz8C20TdCJxHPDiS80cioyBV8c0BUSZDlSMUKQ/exec";
+
+function openCourses(){
+
+    document.getElementById("dashboard").style.display="none";
+    document.getElementById("coursesSection").style.display="block";
+
+    loadCourses();
+}
+
+function goHome(){
+
+    document.getElementById("coursesSection").style.display="none";
+    document.getElementById("dashboard").style.display="block";
+}
+
+function comingSoon(name){
+
     alert(name + " section अगली step में बनाया जाएगा।");
 }
 
 function logout(){
+
     alert("Logout system अगली step में secure किया जाएगा।");
+}
+
+async function loadCourses(){
+
+    const status=document.getElementById("status");
+
+    status.innerText="Courses load हो रहे हैं...";
+
+    try{
+
+        const response=await fetch(API_URL);
+        const data=await response.json();
+
+        if(!data.success){
+
+            status.innerText="Courses load नहीं हो सके।";
+            return;
+        }
+
+        const rows=data.rows || [];
+
+        const courses=rows.slice(2);
+
+        displayCourses(courses);
+
+        status.innerText=
+        "Google Sheet से Courses successfully load हुए।";
+
+    }catch(error){
+
+        console.error(error);
+
+        status.innerText=
+        "Connection error. Web App check करें।";
+    }
+}
+
+function displayCourses(courses){
+
+    const list=document.getElementById("courseList");
+
+    list.innerHTML="";
+
+    if(courses.length===0){
+
+        list.innerHTML=
+        "<p>अभी कोई Course नहीं है।</p>";
+
+        return;
+    }
+
+    courses.forEach(function(row){
+
+        if(!row[0]) return;
+
+        const id=row[0];
+        const name=row[1] || "";
+        const category=row[2] || "";
+        const description=row[3] || "";
+        const type=row[4] || "";
+        const price=row[5] || "";
+        const active=row[6];
+
+        const div=document.createElement("div");
+
+        div.className="course";
+
+        div.innerHTML=`
+        <h3>📚 ${escapeHtml(name)}</h3>
+        <p><b>Category:</b> ${escapeHtml(category)}</p>
+        <p>${escapeHtml(description)}</p>
+        <p><b>Type:</b> ${escapeHtml(type)}</p>
+        <p><b>Price:</b> ${price ? "₹"+escapeHtml(price) : "Free"}</p>
+        <p><b>Status:</b> ${active === false ? "Hidden" : "Active"}</p>
+        `;
+
+        list.appendChild(div);
+
+    });
+}
+
+async function addCourse(){
+
+    const name=
+    document.getElementById("courseName").value.trim();
+
+    const category=
+    document.getElementById("courseCategory").value;
+
+    const description=
+    document.getElementById("courseDescription").value.trim();
+
+    const type=
+    document.getElementById("courseType").value;
+
+    const price=
+    document.getElementById("coursePrice").value.trim();
+
+    if(!name){
+
+        alert("पहले Course Name लिखें।");
+        return;
+    }
+
+    /*
+      Security:
+      ADMIN_KEY को GitHub के इस public code में नहीं रखा गया है।
+      अभी Save button test नहीं करेगा।
+    */
+
+    alert(
+      "Course form तैयार है।\n\n" +
+      "अगले step में इसे सुरक्षित तरीके से Google Sheet में Save करेंगे।"
+    );
+}
+
+function escapeHtml(value){
+
+    return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 }
 
 </script>
